@@ -56,12 +56,32 @@ Thank you for using nginx.
 
 **Step 5**
 
-**Command:** docker cp index.html nginx_local:/usr/share/nginx/html
+**Command:** docker cp index.html nginx-local:/usr/share/nginx/html
 
 **Output:** Hello
 
 **Step 6**
 
-**Command:** docker cp index.html nginx_local:/usr/share/nginx/html
+**Command:** docker rm nginx-local
 
-**Output:** Hello
+**Step 7**
+
+**Command:** docker run --name httpd-local -p 80:80 -v my_volume:/usr/local/apache2/htdocs -d httpd
+
+**Output:** 6dece468ac795dbb0816e654a4d7190db464443e896061b879b377a34180b807
+
+**Command:** http://localhost:8080
+
+**Output:** It works!
+
+**Command:** docker cp about.html httpd-local:/usr/local/apache2/htdocs
+
+**Command:** http://localhost:8080/about.html
+
+**Output:** Hello1, It is Abdul, **It works!!!**
+
+**Command:** docker stop httpd-local
+
+**Command:** docker rm httpd-local
+
+**Command:** docker volume rm my_volume
